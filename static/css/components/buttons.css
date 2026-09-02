@@ -1,0 +1,72 @@
+.button,
+button {
+  border: 1px solid var(--line);
+  color: var(--ink);
+  background: var(--bg);
+  min-height: 40px;
+  padding: 7px 16px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+}
+
+.button:hover,
+button:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.button.primary,
+button.primary {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--ink);
+}
+
+.button.primary:hover,
+button.primary:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+button:disabled {
+  color: var(--muted);
+  cursor: default;
+}
+
+button:disabled:hover {
+  background: transparent;
+  color: var(--muted);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(8, 8, 8, .35);
+}
+
+.modal {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  box-shadow: 6px 6px 0 0 var(--line);
+  padding: 22px 22px 20px;
+  width: min(440px, 100%);
+  color: var(--ink);
+}
+
+.modal-message {
+  margin: 0 0 20px;
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}

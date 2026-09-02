@@ -1,0 +1,19 @@
+.notice {
+  margin: 0;
+  border-bottom: 2px solid var(--line);
+  padding: 10px 12px;
+  background: transparent;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.notice.ok {
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.notice.err {
+  border-color: var(--accent);
+  color: var(--accent);
+}

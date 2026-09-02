@@ -1,0 +1,7 @@
+@font-face {
+  font-family: "Unifont";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("../../fonts/unifont-ui.woff2") format("woff2");
+}

@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{.Title}}</title>
+  <link rel="preload" href="{{asseturl "fonts/unifont-ui.woff2"}}" as="font" type="font/woff2" crossorigin>
+  <style>
+    @font-face {
+      font-family: "Unifont";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: {{fonturl}} format("woff2");
+    }
+    :root {
+      --page-bg: #f6f6f6 {{backgroundurl}} center / cover fixed no-repeat;
+    }
+    body {
+      font-family: "Unifont", monospace;
+    }
+  </style>
+  <link rel="stylesheet" href="{{asseturl "css/foundation/tokens.css"}}?v={{assetversion}}">
+  <link rel="stylesheet" href="{{asseturl "css/foundation/base.css"}}?v={{assetversion}}">
+  <link rel="stylesheet" href="{{asseturl "css/layout/app.css"}}?v={{assetversion}}">
+  <link rel="stylesheet" href="{{asseturl "css/components/buttons.css"}}?v={{assetversion}}">
+  <link rel="stylesheet" href="{{asseturl "css/components/notices.css"}}?v={{assetversion}}">
+  <link rel="stylesheet" href="{{asseturl "css/components/upload.css"}}?v={{assetversion}}">
+  <link rel="stylesheet" href="{{asseturl "css/components/listing.css"}}?v={{assetversion}}">
+  <link rel="stylesheet" href="{{asseturl "css/components/login.css"}}?v={{assetversion}}">
+  <link rel="stylesheet" href="{{asseturl "css/layout/responsive.css"}}?v={{assetversion}}">
+  <script defer src="{{asseturl "js/app.js"}}?v={{assetversion}}"></script>
+</head>
+<body data-login-url="{{pathurl "_trasmetto-login"}}"{{if .UploadNeedsLogin}} data-write-needs-login="1"{{end}}>
+  <header class="topbar">
+    <div class="top-inner">
+      <div class="logo">
+        <h1><a class="home-link" href="{{pathurl "."}}" data-dir-link title="Go to the root directory">&gt; Trasmetto</a></h1>
+      </div>
+      <div class="mode">
+        <span class="version">version 1.0.0</span>
+        <a class="gh-link" href="https://github.com/0xJavlonbeck/trasmetto" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">
+          <svg class="gh-icon" viewBox="0 0 480 512" aria-hidden="true" focusable="false">
+            <path fill="currentColor" fill-rule="evenodd" d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-28.8-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 41.2 72 41.2 114zM357.9 328.7c0-20.9-10.9-55.1-36.7-55.1s-36.7 34.2-36.7 55.1 10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1z"/>
+          </svg>
+          <span class="gh-text">GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+  {{template "content" .}}
+  <div class="modal-overlay" data-modal hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-message">
+      <p class="modal-message" id="modal-message" data-modal-message></p>
+      <div class="modal-actions">
+        <button type="button" class="modal-cancel" data-modal-cancel>cancel</button>
+        <button type="button" class="primary" data-modal-confirm>download</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-overlay" data-paste-modal hidden>
+    <div class="modal paste-modal" role="dialog" aria-modal="true" aria-labelledby="paste-title">
+      <p class="modal-message" id="paste-title">Paste content to save as a file</p>
+      <textarea class="paste-content" data-paste-content placeholder="Paste text&hellip;" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea>
+      <input type="text" class="paste-name" data-paste-name placeholder="filename (optional)" spellcheck="false" autocapitalize="off" autocomplete="off">
+      <div class="notice err paste-error" data-paste-error hidden></div>
+      <div class="modal-actions">
+        <button type="button" class="modal-cancel" data-paste-cancel>cancel</button>
+        <button type="button" class="primary" data-paste-save>save</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-overlay" data-mkdir-modal hidden>
+    <div class="modal paste-modal" role="dialog" aria-modal="true" aria-labelledby="mkdir-title">
+      <p class="modal-message" id="mkdir-title">Create a folder</p>
+      <input type="text" class="paste-name" data-mkdir-name placeholder="folder name" spellcheck="false" autocapitalize="off" autocomplete="off">
+      <div class="notice err paste-error" data-mkdir-error hidden></div>
+      <div class="modal-actions">
+        <button type="button" class="modal-cancel" data-mkdir-cancel>cancel</button>
+        <button type="button" class="primary" data-mkdir-save>create</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-overlay" data-delete-modal hidden>
+    <div class="modal paste-modal" role="dialog" aria-modal="true" aria-labelledby="delete-title">
+      <p class="modal-message" id="delete-title">Delete selected items?</p>
+      <p class="delete-list" data-delete-list></p>
+      <div class="notice err paste-error" data-delete-error hidden></div>
+      <div class="modal-actions">
+        <button type="button" class="modal-cancel" data-delete-cancel>cancel</button>
+        <button type="button" class="primary" data-delete-confirm>delete</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-overlay" data-login-modal hidden>
+    <form class="modal login-modal" data-login-form role="dialog" aria-modal="true" aria-labelledby="login-modal-title">
+      <p class="modal-message" id="login-modal-title">Log in to upload</p>
+      <div class="notice err login-error" data-login-error hidden></div>
+      <label class="login-field">
+        <span>username</span>
+        <input class="login-input" type="text" name="username" data-login-user autocomplete="username" spellcheck="false" autocapitalize="off">
+      </label>
+      <label class="login-field">
+        <span>password</span>
+        <input class="login-input" type="password" name="password" data-login-pass autocomplete="current-password">
+      </label>
+      <div class="modal-actions">
+        <button type="button" class="modal-cancel" data-login-cancel>cancel</button>
+        <button type="submit" class="primary" data-login-submit>log in</button>
+      </div>
+    </form>
+  </div>
+  <div class="drop-overlay" data-drop-overlay hidden>
+    <div class="drop-hint">Drop files to upload</div>
+  </div>
+</body>
+</html>
+{{define "content"}}
+  <section class="statusbar" aria-live="polite">
+    {{if .Message}}<div class="notice ok">{{.Message}}</div>{{end}}
+    {{if .Error}}<div class="notice err">{{.Error}}</div>{{end}}
+    <div class="notice err" data-upload-error hidden></div>
+  </section>
+
+  <main>
+    <section class="shell">
+      {{- if or .CanUpload .UploadNotice}}
+      <div class="upload-slot">
+      {{if .UploadNotice}}
+        <div class="upload-locked" data-upload-locked>{{.UploadNotice}}</div>
+      {{else if .CanUpload}}
+        <form class="upload" action="{{pathurl .CurrentQuery}}" method="post" enctype="multipart/form-data" data-upload-form data-max-upload-bytes="{{.MaxUploadBytes}}"{{if .UploadNeedsLogin}} data-upload-needs-login="1"{{end}}>
+          <div class="upload-picker">
+            <label class="file-button" for="upload-files">Browse</label>
+            <input id="upload-files" type="file" name="files" multiple data-file-input>
+            <span class="upload-inline-error" data-upload-inline-error hidden></span>
+            <span class="selected-file" data-selected-file>No file selected</span>
+          </div>
+          <span class="upload-state" data-upload-state></span>
+          {{- if $.CanManage}}
+          <button class="paste-button" type="button" data-mkdir-open>mkdir</button>
+          {{- end}}
+          <button class="paste-button" type="button" data-paste-open>paste</button>
+          <button class="primary" type="submit">upload</button>
+        </form>
+      {{end}}
+        <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;z-index:50;width:100%;height:1px;background:#080808;display:block;pointer-events:none;"></div>
+      </div>
+      {{- end}}
+
+      {{- if .Entries}}
+      <div class="filter-bar" data-filter-bar>
+        <input class="filter-input" type="text" placeholder="filter files&hellip;" data-filter-input aria-label="Filter files in this folder" spellcheck="false" autocapitalize="off" autocomplete="off">
+        <span class="filter-count" data-filter-count></span>
+      </div>
+      {{- end}}
+      <div class="listing">
+        <table aria-label="directory listing">
+          <thead>
+            <tr>
+              {{- if .CanZip}}
+              <th class="pick"></th>
+              {{- end}}
+              <th><button type="button" class="sort-button" data-sort="name">Name<span class="sort-arrow" aria-hidden="true"></span></button></th>
+              <th class="size"><button type="button" class="sort-button" data-sort="size">Size<span class="sort-arrow" aria-hidden="true"></span></button></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{- if .CanGoUp}}
+            <tr class="dir parent">
+              {{- if .CanZip}}<td class="pick"></td>{{end}}
+              <td><a class="name" href="{{pathurl .ParentQuery}}" data-dir-link>../</a></td>
+              <td class="size">-</td>
+            </tr>
+            {{- end}}
+            {{- if .Entries}}
+            {{- range .Entries}}
+            <tr{{if .IsDir}} class="dir"{{end}} data-name="{{.Name}}" data-bytes="{{.Bytes}}" data-group="{{.SortGroup}}">
+              {{- if $.CanZip}}<td class="pick">{{if .Readable}}<input type="checkbox" class="row-check" value="{{.RelPath}}" aria-label="Select {{.Name}}">{{end}}</td>{{end}}
+              <td>{{if .Readable}}<a class="name" href="{{if .IsDir}}{{pathurl .RelPath}}{{else if $.CanDownload}}{{pathurl .RelPath}}{{else}}#{{end}}"{{if .IsDir}} data-dir-link{{end}}>{{.DisplayName}}</a>{{else}}<span class="name unreadable" title="Trasmetto cannot read this; check its permissions"><span class="no-read">[no read]</span> {{.DisplayName}}</span>{{end}}</td>
+              <td class="size">{{.Size}}</td>
+            </tr>
+            {{- end}}
+            <tr class="filter-empty" data-filter-empty hidden><td class="empty" colspan="{{if .CanZip}}3{{else}}2{{end}}">no matches</td></tr>
+            {{- else}}
+            <tr><td class="empty" colspan="{{if .CanZip}}3{{else}}2{{end}}">empty directory</td></tr>
+            {{- end}}
+          </tbody>
+        </table>
+      </div>
+      {{- if .CanZip}}
+      <div class="zip-bar" data-zip-bar{{if .CanManage}} data-manage-url="{{manageurl .CurrentQuery}}"{{end}}>
+        <span class="zip-bar-info" data-zip-info data-idle-text="{{if .FileSetMode}}Zips every served file unless items are checked{{else}}Zips the whole folder unless items are checked{{end}}">{{if .FileSetMode}}Zips every served file unless items are checked{{else}}Zips the whole folder unless items are checked{{end}}</span>
+        {{- if .CanManage}}
+        <button type="button" class="zip-download delete-button" data-delete-open disabled>Delete</button>
+        {{- end}}
+        <button type="button" class="primary zip-download" data-zip-download data-archive-url="{{archiveurl .CurrentQuery}}" data-all-label="{{if .FileSetMode}}Download all .zip{{else}}Download folder .zip{{end}}">{{if .FileSetMode}}Download all .zip{{else}}Download folder .zip{{end}}</button>
+      </div>
+      {{- end}}
+    </section>
+  </main>
+{{end}}

@@ -1,0 +1,34 @@
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--page-bg);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  font: 20px/1.25 "Unifont", monospace;
+  font-synthesis: none;
+  letter-spacing: 0;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:visited {
+  color: var(--link);
+}

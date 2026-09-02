@@ -1,0 +1,78 @@
+.login-main {
+  width: min(1180px, calc(100% - 28px));
+  margin: 0 auto;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 56px 0;
+  overflow: auto;
+}
+
+.login-card {
+  width: min(380px, 100%);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  box-shadow: 6px 6px 0 0 var(--line);
+  padding: 24px 22px 20px;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.login-title {
+  margin: 0;
+  font-size: 18px;
+}
+
+.login-error {
+  margin: 0;
+  white-space: normal;
+}
+
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.login-field span {
+  color: var(--muted);
+}
+
+.login-input {
+  width: 100%;
+  font: inherit;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  padding: 9px 12px;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: var(--green);
+}
+
+.login-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.login-actions .primary {
+  height: 40px;
+}
+
+.login-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.login-modal .login-error {
+  margin: 0;
+}

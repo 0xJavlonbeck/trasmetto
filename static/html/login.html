@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{.Title}}</title>
+  <link rel="preload" href="{{asseturl "fonts/unifont-ui.woff2"}}" as="font" type="font/woff2" crossorigin>
+  <style>
+    @font-face {
+      font-family: "Unifont";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: {{fonturl}} format("woff2");
+    }
+    :root {
+      --page-bg: #f6f6f6 {{backgroundurl}} center / cover fixed no-repeat;
+    }
+    body {
+      font-family: "Unifont", monospace;
+    }
+  </style>
+  <link rel="stylesheet" href="{{asseturl "css/foundation/tokens.css"}}?v={{assetversion}}">
+  <link rel="stylesheet" href="{{asseturl "css/foundation/base.css"}}?v={{assetversion}}">
+  <link rel="stylesheet" href="{{asseturl "css/layout/app.css"}}?v={{assetversion}}">
+  <link rel="stylesheet" href="{{asseturl "css/components/buttons.css"}}?v={{assetversion}}">
+  <link rel="stylesheet" href="{{asseturl "css/components/notices.css"}}?v={{assetversion}}">
+  <link rel="stylesheet" href="{{asseturl "css/components/login.css"}}?v={{assetversion}}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="top-inner">
+      <div class="logo">
+        <h1>&gt; Trasmetto</h1>
+      </div>
+    </div>
+  </header>
+  <main class="login-main">
+    <form class="login-card" method="post" action="{{.Action}}" autocomplete="on">
+      <p class="login-title">Authentication required</p>
+      {{- if .Error}}
+      <div class="notice err login-error">{{.Error}}</div>
+      {{- end}}
+      <input type="hidden" name="next" value="{{.Next}}">
+      <label class="login-field">
+        <span>username</span>
+        <input class="login-input" type="text" name="username" autocomplete="username" spellcheck="false" autocapitalize="off" autofocus>
+      </label>
+      <label class="login-field">
+        <span>password</span>
+        <input class="login-input" type="password" name="password" autocomplete="current-password">
+      </label>
+      <div class="login-actions">
+        <button class="primary" type="submit">log in</button>
+      </div>
+    </form>
+  </main>
+</body>
+</html>

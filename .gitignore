@@ -1,0 +1,10 @@
+# compiled binaries
+/trasmetto
+/trasmetto.exe
+/dist/
+.dist/
+# tls material
+*.key
+*.pem
+*.crt
+/ssl/

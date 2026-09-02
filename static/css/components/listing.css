@@ -1,0 +1,242 @@
+.filter-bar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--soft-line);
+}
+
+.filter-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  font: inherit;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 7px 12px;
+}
+
+.filter-input:focus {
+  outline: none;
+  border-color: var(--green);
+}
+
+.filter-count {
+  flex: 0 0 auto;
+  min-width: 94px;
+  color: var(--muted);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.filter-hidden {
+  display: none;
+}
+
+.listing {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  scrollbar-color: var(--green) transparent;
+  scrollbar-width: thin;
+}
+
+.listing::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+.listing::-webkit-scrollbar-track {
+  background: transparent;
+  border-left: 1px solid var(--line);
+}
+
+.listing::-webkit-scrollbar-thumb {
+  background: var(--green);
+  border: 1px solid var(--line);
+  border-right: 0;
+}
+
+.listing::-webkit-scrollbar-thumb:hover {
+  background: var(--ink);
+}
+
+.listing::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+th,
+td {
+  padding: 13px 16px;
+  vertical-align: middle;
+  background: transparent;
+}
+
+tbody td {
+  border-top: 1px solid var(--soft-line);
+}
+
+.sort-button {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  /* The global button rule sets a 40px min-height and a dark hover fill;
+     a header control needs neither. */
+  min-height: 0;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+/* Headers keep the header colour in every state; the arrow is the only
+   feedback, so a click never leaves a colour stuck behind focus. */
+.sort-button:hover,
+.sort-button:active,
+.sort-button:focus {
+  background: transparent;
+  color: inherit;
+}
+
+.sort-button:focus-visible {
+  outline: 1px solid var(--green);
+  outline-offset: 2px;
+}
+
+th.size .sort-button {
+  width: 100%;
+  justify-content: flex-end;
+}
+
+/* Reserve the arrow's slot so showing it never shifts the label, which is
+   most visible in the right-aligned Size column. */
+.sort-arrow {
+  font-size: .85em;
+  display: inline-block;
+  width: 9px;
+  text-align: center;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  font-size: inherit;
+  text-align: left;
+  background: var(--page-bg);
+  color: var(--green);
+  border-bottom: none;
+  font-weight: 500;
+}
+
+th.size,
+td.size {
+  width: 130px;
+  text-align: right;
+}
+
+.name {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--ink);
+}
+
+.name:visited {
+  color: var(--ink);
+}
+
+.name.unreadable {
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.no-read {
+  color: var(--accent);
+}
+
+tbody tr:hover td {
+  background: rgba(255, 255, 255, .45);
+}
+
+.empty {
+  color: var(--muted);
+  text-align: center;
+  padding: 36px 16px;
+}
+
+.zip-bar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.zip-bar-info {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.zip-download {
+  height: 40px;
+  white-space: nowrap;
+  background: transparent;
+}
+
+.delete-list {
+  margin: 0 0 12px;
+  max-height: 180px;
+  overflow: auto;
+  color: var(--muted);
+  word-break: break-all;
+}
+
+th.pick,
+td.pick {
+  width: 34px;
+  text-align: center;
+  padding-right: 0;
+}
+
+.row-check {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.row-check:hover {
+  border-color: var(--green);
+}
+
+.row-check:checked {
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%3E%3Cpath%20d='M2%207.5%20L6%2013%20L16%20-0.5'%20fill='none'%20stroke='%23000000'%20stroke-width='5'%20stroke-linecap='butt'%20stroke-linejoin='miter'%20stroke-miterlimit='10'/%3E%3Cpath%20d='M2%207.5%20L6%2013%20L16%20-0.5'%20fill='none'%20stroke='%2334a853'%20stroke-width='2.6'%20stroke-linecap='butt'%20stroke-linejoin='miter'%20stroke-miterlimit='10'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px 16px;
+}
